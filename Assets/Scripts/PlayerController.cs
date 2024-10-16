@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     public Rigidbody2D theRb;
 
     public float moveSpeed = 5f;
@@ -11,12 +12,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseInput;
     public float mouseSensitivity = 1f;
 
-    public Transform viewCam;
+    public Camera viewCam;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,7 +39,15 @@ public class PlayerController : MonoBehaviour
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
 
-        viewCam.localRotation = Quaternion.Euler(viewCam.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
+        viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
+
+        // Detect Object
+        Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 3f);
+        if (hit.collider != null)
+        {
+            Debug.Log("I'm looking at " + hit.collider.gameObject.name);
+        }
     
     }
 }
