@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 mouseInput;
     public float mouseSensitivity = 1f;
+    private float verticalLockRotation = 90f;
 
     public Transform viewCam;
 
@@ -24,15 +25,17 @@ public class PlayerController : MonoBehaviour
     {
         // Player Movement
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        Vector3 moveHorizontal = transform.up * -moveInput.x;
-        Vector3 moveVertical = transform.right * moveInput.y;
+        Vector3 moveHorizontal = transform.right * moveInput.x;
+        Vector3 moveVertical = transform.up * moveInput.y;
         theRb.velocity = (moveHorizontal + moveVertical) * moveSpeed;
 
         // Player View Control
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
 
-        viewCam.localRotation = Quaternion.Euler(viewCam.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
+        verticalLockRotation += mouseInput.y;
+        verticalLockRotation = Mathf.Clamp(verticalLockRotation, 0f, 180f);
+        viewCam.localRotation = Quaternion.Euler(-verticalLockRotation, 0f, 0f);
     
     }
 }
