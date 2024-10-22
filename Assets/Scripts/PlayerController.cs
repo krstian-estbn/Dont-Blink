@@ -43,10 +43,21 @@ public class PlayerController : MonoBehaviour
 
         // Detect Object
         Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 3f);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 0.05f);
         if (hit.collider != null)
         {
-            Debug.Log("I'm looking at " + hit.collider.gameObject.name);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("I'm looking at " + hit.collider.gameObject.name);
+            }
+            else
+            {
+                Debug.Log("Click Me");
+            }
+        }
+        else
+        {
+            Debug.Log("I'm not looking at anything");
         }
     
     }
