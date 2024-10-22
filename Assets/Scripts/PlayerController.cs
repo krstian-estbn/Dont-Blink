@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
         verticalLockRotation += mouseInput.y;
         verticalLockRotation = Mathf.Clamp(verticalLockRotation, 0f, 180f);
-        viewCam.localRotation = Quaternion.Euler(-verticalLockRotation, 0f, 0f);
+        viewCam.transform.localRotation = Quaternion.Euler(-verticalLockRotation, 0f, 0f);
 
         // Detect Object
         Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
