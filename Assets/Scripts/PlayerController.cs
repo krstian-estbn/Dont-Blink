@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,10 +15,6 @@ public class PlayerController : MonoBehaviour
 
     public Camera viewCam;
 
-    public int letterCounter = 0;
-    public Text counter;
-
-
     private void Awake()
     {
         instance = this;
@@ -28,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        counter.text = letterCounter.ToString();
+
     }
 
     // Update is called once per frame
@@ -53,23 +48,24 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 0.2f);
         if (hit.collider != null)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Debug.Log("I'm looking at " + hit.collider.gameObject.name);
-                letterCounter += 1;
-                Destroy(hit.collider.gameObject);
+            ItemPickup itemPickup = hit.collider.GetComponent<ItemPickup>();
 
+            if (itemPickup != null)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("I'm picking up " + hit.collider.gameObject.name);
+                    itemPickup.Pickup();
+                }
             }
             else
             {
-                Debug.Log("Click Me");
+                Debug.Log("No item to pick up");
             }
         }
         else
         {
             Debug.Log("I'm not looking at anything");
         }
-
-        counter.text = letterCounter.ToString();
     }
 }
