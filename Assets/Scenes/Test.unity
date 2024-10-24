@@ -6928,7 +6928,7 @@ MonoBehaviour:
   theRb: {fileID: 1304295523}
   moveSpeed: 5
   mouseSensitivity: 1
-  viewCam: {fileID: 815044147}
+  viewCam: {fileID: 815044146}
 --- !u!50 &1304295523
 Rigidbody2D:
   serializedVersion: 4

@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 1f;
     private float verticalLockRotation = 90f;
 
-    public Transform viewCam;
+    public Camera viewCam;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
         verticalLockRotation += mouseInput.y;
         verticalLockRotation = Mathf.Clamp(verticalLockRotation, 0f, 180f);
-        viewCam.localRotation = Quaternion.Euler(-verticalLockRotation, 0f, 0f);
+        viewCam.transform.localRotation = Quaternion.Euler(-verticalLockRotation, 0f, 0f);
     
     }
 }
