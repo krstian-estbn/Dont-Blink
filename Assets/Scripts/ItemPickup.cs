@@ -7,6 +7,7 @@ public class ItemPickup : MonoBehaviour
 
     private PlayerInventory inventory;
     public GameObject itemButton;
+    public GameObject letterDisplay;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,8 +24,10 @@ public class ItemPickup : MonoBehaviour
                 inventory.isFull[i] = true;
                 Instantiate(itemButton, inventory.slots[i].transform, false);
                 Destroy(gameObject);
+                letterDisplay.gameObject.SetActive(true);
                 break;
             }
         }
     }
+
 }
