@@ -1,0 +1,4 @@
+*.cs merge=kdiff3
+*.unity merge=unityyamlmerge
+*.prefab merge=unityyamlmerge
+*.scene merge=unityyamlmerge
